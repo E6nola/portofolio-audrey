@@ -1,16 +1,25 @@
 /* ==========================================================================
-   AUDREY NABILLA LAKSONO — INTERACTIVE MONOGRAPH CONTROLLER
+   AUDREY NABILLA LAKSONO — INTERACTIVE PORTFOLIO & LIVING GLASS CONTROLLER
    Powers:
-   1. 4-Pillar Domain Workbench (Bab I)
-   2. Active Semester 5 Study Cluster Filter (Bab II)
-   3. Case Study Category Filter & Architecture Specification Drawer (Bab III)
-   4. Scroll-Spy Chapter Index & Clipboard Utilities
+   1. iOS Liquid Glass Floating Navigation Dock (Elastic Spring Pill Indicator)
+   2. Living Frosted Glass Dynamic Mouse Spotlight & 3D Tilt Physics
+   3. Ambient 3D Parallax Cosmos Spheres
+   4. 4-Pillar Domain Workbench & Architecture Blueprints (Slide 01)
+   5. Active Semester 5 Study Cluster Filter (Slide 02)
+   6. Case Study Category Filter & Architecture Specification Drawer (Slide 03)
+   7. Donut Chart Living Glow & Interactions (Slide 04)
+   8. Coursera Credential Registry Filter (Slide 05)
+   9. Clipboard Utilities & Feedback
    ========================================================================== */
 
 (function () {
   "use strict";
 
-  /* 1. Data for Interactive 4-Pillar Domain Workbench */
+  /* ========================================================================
+     1. DATA DEFINITIONS
+     ======================================================================== */
+
+  /* 4-Pillar Domain Workbench Data */
   const DOMAIN_DATA = {
     web: {
       tag: "Pilar 01 — Pengembangan Perangkat Lunak",
@@ -177,7 +186,7 @@
     }
   };
 
-  /* 2. Detailed Specification Data for the 8 Case Studies (Modal Drawer) */
+  /* Detailed Specification Data for Modal Drawer */
   const CASE_STUDIES = {
     "pawspa": {
       kicker: "KARYA 01 · FULL-STACK PHP OOP MVC",
@@ -412,7 +421,202 @@
     }
   };
 
-  /* 3. Initialize 4-Pillar Domain Workbench */
+  /* ========================================================================
+     2. IOS LIQUID GLASS FLOATING NAVIGATION DOCK
+     ======================================================================== */
+
+  const dockLinksContainer = document.querySelector(".dock-links");
+  const chapterLinks = document.querySelectorAll(".chapter-link");
+  const chapterBlocks = document.querySelectorAll(".chapter-block");
+
+  let liquidIndicator = null;
+  let activeLink = null;
+  let isHoveringDock = false;
+
+  function initLiquidDock() {
+    if (!dockLinksContainer || chapterLinks.length === 0) return;
+
+    // Check or create the liquid indicator pill
+    liquidIndicator = dockLinksContainer.querySelector(".dock-liquid-pill");
+    if (!liquidIndicator) {
+      liquidIndicator = document.createElement("span");
+      liquidIndicator.className = "dock-liquid-pill";
+      liquidIndicator.setAttribute("aria-hidden", "true");
+      dockLinksContainer.prepend(liquidIndicator);
+    }
+
+    // Identify initially active link
+    activeLink = dockLinksContainer.querySelector(".chapter-link.is-current") || chapterLinks[0];
+    positionLiquidIndicator(activeLink, false);
+
+    // Hover interactions (Liquid Fluid stretch & glide)
+    chapterLinks.forEach(function (link) {
+      link.addEventListener("mouseenter", function () {
+        isHoveringDock = true;
+        positionLiquidIndicator(link, true);
+      });
+
+      link.addEventListener("click", function () {
+        activeLink = link;
+        chapterLinks.forEach(function (l) {
+          l.classList.toggle("is-current", l === link);
+        });
+        positionLiquidIndicator(link, true);
+      });
+    });
+
+    dockLinksContainer.addEventListener("mouseleave", function () {
+      isHoveringDock = false;
+      if (activeLink) {
+        positionLiquidIndicator(activeLink, true);
+      }
+    });
+
+    // Handle window resize gracefully
+    window.addEventListener("resize", function () {
+      if (activeLink) {
+        positionLiquidIndicator(activeLink, false);
+      }
+    });
+  }
+
+  function positionLiquidIndicator(targetEl, animate) {
+    if (!liquidIndicator || !targetEl || !dockLinksContainer) return;
+
+    const parentRect = dockLinksContainer.getBoundingClientRect();
+    const targetRect = targetEl.getBoundingClientRect();
+
+    const left = targetRect.left - parentRect.left;
+    const top = targetRect.top - parentRect.top;
+    const width = targetRect.width;
+    const height = targetRect.height;
+
+    liquidIndicator.style.transition = animate
+      ? "transform 0.42s cubic-bezier(0.2, 0.9, 0.25, 1.15), width 0.35s cubic-bezier(0.2, 0.9, 0.25, 1.15), height 0.35s ease, opacity 0.25s ease"
+      : "none";
+
+    liquidIndicator.style.transform = "translate3d(" + Math.round(left) + "px, " + Math.round(top) + "px, 0)";
+    liquidIndicator.style.width = Math.round(width) + "px";
+    liquidIndicator.style.height = Math.round(height) + "px";
+    liquidIndicator.style.opacity = "1";
+  }
+
+  /* Scroll-Spy with Smooth Liquid Pill Tracking */
+  function initScrollSpy() {
+    if (!("IntersectionObserver" in window) || chapterBlocks.length === 0) return;
+
+    const spyObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const activeId = entry.target.id;
+            chapterLinks.forEach(function (link) {
+              const isMatch = link.getAttribute("data-chapter") === activeId;
+              link.classList.toggle("is-current", isMatch);
+              if (isMatch) {
+                activeLink = link;
+                if (!isHoveringDock) {
+                  positionLiquidIndicator(link, true);
+                }
+              }
+            });
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
+    );
+
+    chapterBlocks.forEach(function (block) {
+      spyObserver.observe(block);
+    });
+  }
+
+  /* ========================================================================
+     3. LIVING FROSTED GLASS & MOUSE-TRACKING SPOTLIGHT
+     ======================================================================== */
+
+  function initLivingGlass() {
+    // Select all interactive glass surfaces
+    const glassTargets = document.querySelectorAll(
+      ".glass-card, .case-card, .study-card, .domain-tab, .cred-row, .lami-showcase-card, .cazora-column-card, .hero-glass-centerpiece, .donut-glass-card, .contact-panel, .directory-row, .cazora-dock"
+    );
+
+    glassTargets.forEach(function (card) {
+      card.addEventListener("mousemove", function (e) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty("--mouse-x", x + "px");
+        card.style.setProperty("--mouse-y", y + "px");
+
+        // Subtle 3D Tilt on select prominent cards
+        if (
+          card.classList.contains("case-card") ||
+          card.classList.contains("study-card") ||
+          card.classList.contains("donut-glass-card") ||
+          card.classList.contains("domain-tab")
+        ) {
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const tiltX = ((y - centerY) / centerY) * -5.5; // Max 5.5 deg
+          const tiltY = ((x - centerX) / centerX) * 5.5;
+
+          card.style.setProperty("--tilt-x", tiltX.toFixed(2) + "deg");
+          card.style.setProperty("--tilt-y", tiltY.toFixed(2) + "deg");
+        }
+      });
+
+      card.addEventListener("mouseleave", function () {
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
+      });
+    });
+
+    // Parallax response for floating background orbs
+    const orbs = document.querySelectorAll(".cosmos-orb, .hero-sphere, .chart-orb-decor");
+    if (orbs.length > 0) {
+      let rafId = null;
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+
+      window.addEventListener("mousemove", function (e) {
+        const halfW = window.innerWidth / 2;
+        const halfH = window.innerHeight / 2;
+        targetX = (e.clientX - halfW) / halfW;
+        targetY = (e.clientY - halfH) / halfH;
+
+        if (!rafId) {
+          rafId = requestAnimationFrame(updateParallax);
+        }
+      });
+
+      function updateParallax() {
+        currentX += (targetX - currentX) * 0.06;
+        currentY += (targetY - currentY) * 0.06;
+
+        orbs.forEach(function (orb, index) {
+          const depth = (index + 1) * 7.5;
+          const shiftX = (currentX * depth).toFixed(1);
+          const shiftY = (currentY * depth).toFixed(1);
+          orb.style.transform = "translate3d(" + shiftX + "px, " + shiftY + "px, 0)";
+        });
+
+        if (Math.abs(targetX - currentX) > 0.002 || Math.abs(targetY - currentY) > 0.002) {
+          rafId = requestAnimationFrame(updateParallax);
+        } else {
+          rafId = null;
+        }
+      }
+    }
+  }
+
+  /* ========================================================================
+     4. 4-PILLAR DOMAIN WORKBENCH CONTROLLER
+     ======================================================================== */
+
   const domainTabs = document.querySelectorAll(".domain-tab");
   const stagePanel = document.getElementById("panel-domain-stage");
   const stageTag = document.getElementById("stage-tag");
@@ -478,7 +682,10 @@
     });
   });
 
-  /* 4. Initialize Semester 5 Study Cluster Filter (Bab II) */
+  /* ========================================================================
+     5. SEMESTER 5 STUDY CLUSTER FILTER (SLIDE 02)
+     ======================================================================== */
+
   const studyChips = document.querySelectorAll(".cluster-chip");
   const studyCards = document.querySelectorAll(".study-card");
 
@@ -497,7 +704,10 @@
     });
   });
 
-  /* 5. Initialize Case Study Filter (Bab III) */
+  /* ========================================================================
+     6. CASE STUDY CATEGORY FILTER (SLIDE 03)
+     ======================================================================== */
+
   const workFilterBtns = document.querySelectorAll(".work-filter-btn");
   const caseCards = document.querySelectorAll(".case-card");
   const workCountLabel = document.getElementById("work-count-label");
@@ -537,7 +747,10 @@
     });
   }
 
-  /* 6. Specification & Architecture Modal Drawer */
+  /* ========================================================================
+     7. ARCHITECTURE SPECIFICATION MODAL DRAWER
+     ======================================================================== */
+
   const drawerBackdrop = document.getElementById("spec-drawer-backdrop");
   const drawerCloseBtn = document.getElementById("drawer-close-btn");
   const drawerKicker = document.getElementById("drawer-project-kicker");
@@ -640,46 +853,10 @@
     }
   });
 
-  /* 7. Scroll-Spy Chapter Navigation */
-  const chapterLinks = document.querySelectorAll(".chapter-link");
-  const chapterBlocks = document.querySelectorAll(".chapter-block");
+  /* ========================================================================
+     8. COURSERA CREDENTIAL REGISTRY FILTER (SLIDE 05)
+     ======================================================================== */
 
-  if ("IntersectionObserver" in window && chapterBlocks.length > 0) {
-    const spyObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            const activeId = entry.target.id;
-            chapterLinks.forEach(function (link) {
-              link.classList.toggle("is-current", link.getAttribute("data-chapter") === activeId);
-            });
-          }
-        });
-      },
-      { rootMargin: "-20% 0px -65% 0px", threshold: 0 }
-    );
-
-    chapterBlocks.forEach(function (block) {
-      spyObserver.observe(block);
-    });
-  }
-
-  /* 8. Copy Email Buttons */
-  document.querySelectorAll(".copy-email-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      const email = btn.getAttribute("data-copy");
-      if (!email || !navigator.clipboard) return;
-      const originalText = btn.textContent;
-      navigator.clipboard.writeText(email).then(function () {
-        btn.textContent = "Tersalin ✓";
-        setTimeout(function () {
-          btn.textContent = originalText;
-        }, 2000);
-      });
-    });
-  });
-
-  /* 9. Coursera Credential Registry Filter (Bab V) */
   const credTabs = document.querySelectorAll(".reg-tab-btn");
   const credRows = document.querySelectorAll(".cred-row");
 
@@ -697,4 +874,41 @@
       });
     });
   });
+
+  /* ========================================================================
+     9. CLIPBOARD UTILITY WITH GLASS TOAST
+     ======================================================================== */
+
+  document.querySelectorAll(".copy-email-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      const email = btn.getAttribute("data-copy");
+      if (!email || !navigator.clipboard) return;
+      const originalText = btn.textContent;
+      navigator.clipboard.writeText(email).then(function () {
+        btn.textContent = "Tersalin ✓";
+        btn.classList.add("is-copied");
+        setTimeout(function () {
+          btn.textContent = originalText;
+          btn.classList.remove("is-copied");
+        }, 2200);
+      });
+    });
+  });
+
+  /* ========================================================================
+     10. INITIALIZATION
+     ======================================================================== */
+
+  document.addEventListener("DOMContentLoaded", function () {
+    initLiquidDock();
+    initScrollSpy();
+    initLivingGlass();
+  });
+
+  // If DOM is already ready
+  if (document.readyState === "interactive" || document.readyState === "complete") {
+    initLiquidDock();
+    initScrollSpy();
+    initLivingGlass();
+  }
 })();
