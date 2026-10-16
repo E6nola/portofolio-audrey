@@ -1216,6 +1216,210 @@ body {
   line-height: 1.55;
 }
 
+/* SUBSECTION: COURSERA CREDENTIAL REGISTRY */
+.credential-registry {
+  margin-top: 44px;
+  background-color: var(--card-ivory);
+  border: 1px solid var(--travertine-strong);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  box-shadow: 0 8px 26px rgba(33, 23, 26, 0.04);
+}
+
+.registry-banner {
+  padding: 26px 28px;
+  background-color: var(--sand-surface);
+  border-bottom: 1px solid var(--travertine-rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.registry-kicker {
+  display: block;
+  color: var(--berry-accent);
+  font-weight: 700;
+  font-size: 0.74rem;
+  margin-bottom: 4px;
+}
+
+.registry-heading {
+  font-family: var(--serif-editorial);
+  font-size: 1.38rem;
+  margin: 0 0 6px;
+  color: var(--espresso-ink);
+}
+
+.registry-sub {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--cocoa-muted);
+  max-width: 68ch;
+}
+
+.registry-stats-box {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.reg-stat {
+  background: var(--card-ivory);
+  border: 1px solid var(--travertine-rule);
+  border-radius: var(--radius-soft);
+  padding: 10px 16px;
+  text-align: center;
+  min-width: 110px;
+}
+
+.reg-stat strong {
+  display: block;
+  font-size: 1.35rem;
+  color: var(--cypress-primary);
+  line-height: 1.1;
+}
+
+.reg-stat span {
+  font-size: 0.74rem;
+  color: var(--cocoa-muted);
+}
+
+.registry-controls {
+  padding: 14px 28px;
+  background-color: #FBF9F5;
+  border-bottom: 1px solid var(--travertine-rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.reg-tab-btn {
+  appearance: none;
+  background-color: var(--card-ivory);
+  border: 1px solid var(--travertine-strong);
+  color: var(--cocoa-muted);
+  padding: 7px 14px;
+  border-radius: var(--radius-soft);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.reg-tab-btn:hover {
+  border-color: var(--cypress-primary);
+  color: var(--espresso-ink);
+}
+
+.reg-tab-btn.is-selected {
+  background-color: var(--cypress-primary);
+  border-color: var(--cypress-primary);
+  color: #FFFFFF;
+}
+
+.credential-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.cred-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1.8fr) auto 125px 190px;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 28px;
+  border-bottom: 1px solid var(--travertine-rule);
+  transition: background-color 0.15s ease;
+}
+
+.cred-row:last-child {
+  border-bottom: none;
+}
+
+.cred-row:hover {
+  background-color: #FDFBF7;
+}
+
+.cred-row.cred-row-verified {
+  background-color: #F6FBF9;
+  border-left: 4px solid var(--cypress-primary);
+  padding-left: 24px;
+}
+
+.cred-row[hidden] {
+  display: none;
+}
+
+.cred-idx {
+  color: var(--stone-subtle);
+  font-weight: 600;
+  font-size: 0.78rem;
+}
+
+.cred-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cred-course-title {
+  font-size: 0.93rem;
+  color: var(--espresso-ink);
+  line-height: 1.35;
+}
+
+.cred-issuer {
+  font-size: 0.8rem;
+  color: var(--cocoa-muted);
+}
+
+.cred-domain-tag {
+  font-size: 0.73rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.cred-date {
+  font-size: 0.78rem;
+  color: var(--cocoa-muted);
+  text-align: right;
+}
+
+.cred-action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.cred-verify-anchor {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--cypress-primary);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 6px 11px;
+  border-radius: 4px;
+  transition: background-color 0.16s ease;
+}
+
+.cred-verify-anchor:hover {
+  background-color: var(--cypress-deep);
+}
+
+.cred-completed-stamp {
+  font-size: 0.74rem;
+  color: var(--stone-subtle);
+  background-color: var(--linen-bg);
+  border: 1px solid var(--travertine-rule);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
 /* CHAPTER VI: PENGALAMAN, ORGANISASI & JEJAK AKADEMIK */
 .experience-columns {
   display: grid;
@@ -1683,7 +1887,7 @@ body {
   }
 
   .rail-ledger {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .ledger-cell {
@@ -1714,6 +1918,25 @@ body {
   .experience-columns,
   .contact-panel {
     grid-template-columns: 1fr;
+  }
+
+  .registry-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cred-row {
+    grid-template-columns: 32px 1fr;
+    gap: 8px 12px;
+    padding: 16px 20px;
+  }
+
+  .cred-domain-tag,
+  .cred-date,
+  .cred-action {
+    grid-column: 2;
+    justify-self: start;
+    text-align: left;
   }
 
   .domain-selector {

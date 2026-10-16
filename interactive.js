@@ -190,7 +190,7 @@
           detail: "Menggunakan Apache .htaccess URL rewriting yang mengarahkan permintaan ke pengendali yang sesuai (AuthController, BookingController, ServiceController, AdminController)."
         },
         {
-          title: "Lapisan Model & Skema Otomatis (pwl_uas_db)",
+          title: "Lapisan Model & Skema Basis Data Otomatis",
           detail: "Dilengkapi skrip auto-installer SQL (config/install.sql) yang membangun tabel users, services, dan bookings lengkap dengan relasi kunci asing melalui UserModel, ServiceModel, dan BookingModel."
         },
         {
@@ -206,7 +206,6 @@
       ],
       stack: ["PHP 7.4+ OOP", "Custom MVC", "MySQL / MariaDB", "HTML5 & Custom CSS", "Vanilla JavaScript", "Apache .htaccess"],
       links: [
-        { label: "Buka Repo pwl_uas di GitHub ↗", url: "https://github.com/audreynabilla/pwl_uas" },
         { label: "Buka Repo UAS-kelompok-7 di GitHub ↗", url: "https://github.com/audreynabilla/UAS-kelompok-7" }
       ]
     },
@@ -247,7 +246,7 @@
     "crm-djuara": {
       kicker: "KARYA 03 · SISTEM INFORMASI CRM & POS RITEL",
       title: "Sistem Informasi CRM & Kasir Multi-Cabang pada Djuara Coffee",
-      meta: "Pengelolaan Hubungan Pelanggan / CRM (Semester 3 — Kelas Unggulan A12.6301U)",
+      meta: "Pengelolaan Hubungan Pelanggan / CRM (Semester 3 — Kelas Unggulan)",
       summary: "Perancangan dan implementasi aplikasi web Point of Sale (POS) yang terintegrasi langsung dengan mesin loyalitas pelanggan (Customer Relationship Management) untuk jaringan kedai Djuara Coffee yang memiliki 4 cabang operasional.",
       architecture: [
         {
@@ -303,7 +302,7 @@
     "bina-givensa": {
       kicker: "KARYA 05 · ANALISIS SISTEM TERSTRUKTUR & BERORIENTASI OBJEK",
       title: "Analisis & Perancangan Sistem Informasi Jual Beli Alat Kesehatan pada PT. Bina Givensa",
-      meta: "APST (Semester 2) & APSIO (Semester 3 — Kelas Unggulan A12.6301U)",
+      meta: "APST (Semester 2) & APSIO (Semester 3 — Kelas Unggulan)",
       summary: "Studi kasus komprehensif selama dua semester berturut-turut pada PT. Bina Givensa, perusahaan distributor alat kesehatan di Semarang. Mengubah prosedur pemesanan, pengadaan, dan distribusi manual menjadi spesifikasi sistem informasi berbasis web yang terdokumentasi penuh.",
       architecture: [
         {
@@ -676,6 +675,25 @@
         setTimeout(function () {
           btn.textContent = originalText;
         }, 2000);
+      });
+    });
+  });
+
+  /* 9. Coursera Credential Registry Filter (Bab V) */
+  const credTabs = document.querySelectorAll(".reg-tab-btn");
+  const credRows = document.querySelectorAll(".cred-row");
+
+  credTabs.forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      const selectedGroup = tab.getAttribute("data-cred-group");
+      credTabs.forEach(function (t) {
+        t.classList.toggle("is-selected", t === tab);
+      });
+
+      credRows.forEach(function (row) {
+        const cat = row.getAttribute("data-cred-cat");
+        const visible = selectedGroup === "all" || cat === selectedGroup;
+        row.hidden = !visible;
       });
     });
   });
