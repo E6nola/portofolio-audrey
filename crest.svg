@@ -1,7 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
-  <rect x="4" y="4" width="72" height="72" rx="22" fill="#FAF6F0" stroke="#1B5E4B" stroke-width="3"/>
-  <path d="M16 40C16 26.7452 26.7452 16 40 16C53.2548 16 64 26.7452 64 40" stroke="#8E2C48" stroke-width="1.75" stroke-linecap="round"/>
-  <path d="M23 54L34.5 26H38.5L50 54M27.5 44.5H45.5" stroke="#21171A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M47 54V32L60 54V32" stroke="#1B5E4B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="40" cy="63" r="2.5" fill="#8E2C48"/>
+  <defs>
+    <linearGradient id="cazoraBg" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B238C"/>
+      <stop offset="100%" stop-color="#190D4C"/>
+    </linearGradient>
+    <radialGradient id="cazoraOrb" cx="0.3" cy="0.3" r="0.7">
+      <stop offset="0%" stop-color="#F3D5FF" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#9D75EA" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#221261" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="2" y="2" width="76" height="76" rx="22" fill="url(#cazoraBg)" stroke="#E9C6F9" stroke-opacity="0.45" stroke-width="2"/>
+  <circle cx="58" cy="22" r="18" fill="url(#cazoraOrb)"/>
+  <rect x="10" y="14" width="60" height="52" rx="14" fill="#FFFFFF" fill-opacity="0.1" stroke="#FFFFFF" stroke-opacity="0.3" stroke-width="1.2"/>
+  <path d="M21 53L31.5 27H36L46.5 53M25 44.5H42.5" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M46.5 53V31L59 53V31" stroke="#E9C6F9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
